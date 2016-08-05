@@ -1,0 +1,51 @@
+<ul class='nav nav-tabs'>
+  <li class={{tabs.tLog}}>
+    <a href='#' (click)='register=false; tabs={tLog: "active", tReg: ""}'>Login</a>
+  </li>
+  <li class={{tabs.tReg}}>
+    <a href='#' (click)='register=true;  tabs={tLog: "", tReg: "active"}'>Register</a>
+  </li>
+</ul>
+
+<!-- Login Form -->
+<div class='well' *ngIf='!register'>
+  <form class='form-inline' (ngSubmit)='submit(userForm.value, "login")' #userForm='ngForm'>
+    <input type='text'  name='username' placeholder='ID' class='form-control'
+           [(ngModel)]='user.username' required>
+
+    <input type='password' name='password' placeholder='password' class='form-control'
+           [(ngModel)]='user.password' pattern='.{5,}' required>
+
+    <input type='submit' value='Submit' class='btn btn-default'>
+  </form>
+</div>
+
+<!-- Register Form -->
+<div class='well' *ngIf='register'>
+  <form class='form-inline' (ngSubmit)='submit(userForm.value, "register")' #userForm='ngForm'>
+    <input type='text' name='username' placeholder='ID' class='form-control'
+           [(ngModel)]='user.username' required>
+
+    <input type='password' name='password' placeholder='password (min 5 characters)' class='form-control'
+           [(ngModel)]='user.password' pattern='.{5,}' required>
+
+    <input type='submit' value='Submit' class='btn btn-default'>
+  </form>
+</div>
+
+<div class='alert alert-success' *ngIf='loggedIn'>
+  <p>Success - Private Token : {{ token }}<p>
+</div>
+
+
+<!-- Component handling the CRUD (Post Put Delete) process
+     Sending the token to the Child Component (data-bounding)-->
+<crud-compo *ngIf='loggedIn' token={{token}}></crud-compo>
+
+
+<!-- Link to full Data -->
+<div class='alert alert-warning' *ngIf='loggedIn'>
+  <a href='/publications/quotes?access_token={{token}}' target='_blank'>
+    Display the data
+  </a>
+</div>

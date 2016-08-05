@@ -1,0 +1,46 @@
+<!-- Put Request Form -->
+<div class='well'>
+  <p>Add your favorite quote</p>
+
+  <form (ngSubmit)='postQuote(postForm.value)' #postForm='ngForm'>
+    <input type='text' name='author' placeholder='Author' class='form-control'
+           [(ngModel)]='post.author' required>
+
+    <input type='text' name='quote' placeholder='Quote'  class='form-control'
+           [(ngModel)]='post.quote' required>
+    <br>
+    <input type='submit' value='Submit' class='btn btn-default'>
+  </form>
+</div>
+
+<!-- Triggered on Result Callback-->
+<div class='alert alert-success' [hidden]='!quoteEntered'>
+  <p>Successfully add to the database API - endpoint location :
+    <a href='/publications/quotes/:{{addedToDB._id}}?access_token={{token}}' target='_blank'>
+      /publications/quotes/:{{addedToDB._id}}
+    </a>
+  </p>
+  <small>full link : /publications/quotes/:[id]?access_token=[private token]</small>
+</div>
+
+<!-- Put (update) Form & Delete Button -->
+<div class='well' [hidden]='!quoteEntered'>
+  <p>id : {{ addedToDB._id }}</p>
+
+  <form class='inline' (ngSubmit)='putQuote(putForm.value)' #putForm='ngForm'>
+    <input type='text' name='author' class='form-control'
+           [(ngModel)]='addedToDB.author' #author='ngModel' required>
+
+    <input type='text' name='quote' class='form-control'
+           [(ngModel)]='addedToDB.quote' #quote='ngModel' required>
+    <br>
+    <input type='submit' value='update' class='btn btn-info'>
+  </form>
+
+  <button (click)='deleteQuote()' class='btn btn-danger'>Delete</button>
+  <br><br>
+  <!-- Triggered on Result Callback-->
+  <small><p class='alert alert-info' [hidden]='!updated'>
+    Sucessfully updated
+  </p></small>
+</div>
