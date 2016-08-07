@@ -9,7 +9,8 @@ Fonctional CRUD (Get, Post, Put, Delete)<br>
 Access Token<br>
 
 futur improvements:<br>
-UI: MVA - Route for users to manage all the data they added
+UI: MVA - Route for users to manage all the data they added<br>
+UI Error handling instead Meteor.Error
 
 Tools:
 - Raspberry Pi 3 (Model B)
